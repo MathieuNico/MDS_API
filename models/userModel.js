@@ -1,8 +1,14 @@
-import { DataTypes, Model } from('sequelize');
-import sequelize from '../config/database';
+import { DataTypes, Model } from 'sequelize';
+import sequelize from '../config/database.js';
 class User extends Model {}
 User.init(
     {
+        IdUsers: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
+        },
+        
         Login: {
             type: DataTypes.STRING,
             allowNull: false
@@ -34,3 +40,5 @@ User.init(
     modelName: 'User', // We need to choose the model name
     },
 );
+
+export default User;

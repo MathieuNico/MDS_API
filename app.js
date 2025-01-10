@@ -41,7 +41,7 @@ app.use(function(err, req, res, next) {
 });
 
 
-const port = normalizePort(process.env.PORT || '8080');
+const port = normalizePort('8080');
 app.set('port', port);
 
 /**
@@ -55,7 +55,7 @@ const server = http.createServer(app);
 //server.on('error', onError);
 //server.on('listening', onListening);
 
-app.use( chatRouter(server));
+app.use(chatRouter(server));
 
 function normalizePort(val) {
   var port = parseInt(val, 10);
