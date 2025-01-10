@@ -5,11 +5,11 @@ import { fileURLToPath } from 'url';
 import cookieParser from 'cookie-parser';
 import ejsLayouts from 'express-ejs-layouts';
 import logger from 'morgan';
-import { Server } from 'socket.io';
 import http from 'http';
 
-
 import indexRouter from './routes/index.js';
+import chatRouter from './routes/chat.js';
+import userRouter from './routes/users.js';
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url); // Chemin absolu du fichier actuel
@@ -26,15 +26,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(indexRouter);
+app.use(userRouter);
 
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  //next(createError(404));
-  res.status( 404);
-  res.render('404');        
-  //next();
-});
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -54,28 +47,15 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-
 const server = http.createServer(app);
-
 /**
  * Listen on provided port, on all network interfaces.
  */
-server.listen(port);
+
 //server.on('error', onError);
 //server.on('listening', onListening);
 
-const io = new Server(server);
-
-io.on('connection', (socket) => {
-  console.log('a user connected');
-  socket.on('chat message', (msg) => {
-    console.log('message: ' + msg);
-    io.emit('chat message', msg);
-  });
-});
-/**
- * Normalize a port into a number, string, or false.
- */
+app.use( chatRouter(server));
 
 function normalizePort(val) {
   var port = parseInt(val, 10);
@@ -132,3 +112,12 @@ function onListening() {
     : 'port ' + addr.port;
   logger('Listening on ' + bind);
 }
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  //next(createError(404));
+  res.status( 404);
+  res.render('404');        
+  //next();
+});
+server.listen(port);

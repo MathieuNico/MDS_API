@@ -1,9 +1,16 @@
 import express from 'express';
+import User from '../models/userModel';
+
 const router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/user', async function(req, res, next) {
+  try {
+    const users = await User.findAll(); // Utilisez findAll() pour Sequelize
+    res.json(users);
+  } catch (error) {
+    next(error);
+  }
 });
 
 export default router;

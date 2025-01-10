@@ -19,9 +19,9 @@ router.get('/inscription', function(req, res, next) {
   res.render('inscription', { title: 'Inscription' });
 });
 
-router.get('/chat', function(req, res, next) {
-  res.render('chat', { title: 'Chat' });
-});
+// router.get('/chat', function(req, res, next) {
+//   res.render('chat', { title: 'Chat' });
+// });
 /* GET about page. */
 
 export default router;
