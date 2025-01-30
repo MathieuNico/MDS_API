@@ -32,7 +32,7 @@ export default function chatRouter(server) {
         };
         const coupureResult = dab(billet);
   
-        io.emit('chat message', `💰 Résultat pour ${montant}${devise} :\n${coupureResult}`);
+        io.emit('chat message', `Résultat pour ${montant}${devise} :\n${coupureResult}`);
       }
       else {
         io.emit('chat message', msg);
