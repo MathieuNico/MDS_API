@@ -8,6 +8,7 @@ import logger from 'morgan';
 import http from 'http';
 import swaggerUi from 'swagger-ui-express'; // Importer le module swagger-ui-express
 import YAML from 'yamljs';
+import { authenticateJWT } from './middleware/verificate.js'; // Importer le middleware
 
 import indexRouter from './routes/index.js';
 import chatRouter from './routes/chat.js';
@@ -58,7 +59,7 @@ const server = http.createServer(app);
 
 //server.on('error', onError);
 //server.on('listening', onListening);
-
+app.use('/chat', authenticateJWT, chatRouter(server));
 app.use(chatRouter(server));
 
 function normalizePort(val) {

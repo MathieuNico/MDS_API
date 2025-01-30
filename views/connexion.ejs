@@ -3,24 +3,44 @@
 <h1><%= title %></h1>
     <div class="row">
         <div class="col-6">
-            <form>
+            <form action="/user/login" method="POST" id="loginForm">
                 <div class="mb-3">
-                  <label for="exampleInputLogin" class="form-label">Login</label>
-                  <input type="string" class="form-control" id="exampleInputLogin" aria-describedby="LoginHelp">
-                  
+                  <label for="login" class="form-label">Login</label>
+                  <input name = "login" type="string" class="form-control" id="login" aria-describedby="LoginHelp">
                 </div>
                 <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1">
-                </div>
-                <div class="mb-3 form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                  <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                  <label for="password" class="form-label">Password</label>
+                  <input name="password" type="password" class="form-control" id="password">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
 </div>
-
+<script>
+  document.getElementById("loginForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+  
+    const formData = new FormData(this);
+    const login = formData.get("login");
+    const password = formData.get("password");
+  
+    const response = await fetch("/user/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ login, password })
+    });
+  
+    if (response.ok) {
+      const data = await response.json();
+      localStorage.setItem("token", data.token); // Sauvegarde le token dans localStorage
+      alert("Connexion réussie !");
+      window.location.href = "/chat"; // Redirige vers la page de chat
+    } else {
+      alert("Échec de la connexion");
+    }
+  });
+  </script>
   

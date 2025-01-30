@@ -25,3 +25,90 @@ paths:
                       type: string
                     Password:
                       type: string
+    post:
+      summary: Create a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Login:
+                  type: string
+                Password:
+                  type: string
+      responses:
+        '200':
+          description: User created successfully
+        '500':
+          description: Error creating user
+  
+  /user/{id}:
+    get:
+      summary: Get a user by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The user ID
+      responses:
+        '200':
+          description: A single user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  IdUsers:
+                    type: integer
+                  Login:
+                    type: string
+                  Password:
+                    type: string
+        '500':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    put:
+      summary: Update a user by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The user ID
+        - name: user
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              Login:
+                type: string
+              Password:
+                type: string
+      responses:
+        '200':
+          description: User updated successfully
+    delete:
+      summary: Delete a user by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The user ID
+      responses:
+        '200':
+          description: User deleted successfully
+        
