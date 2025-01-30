@@ -15,4 +15,19 @@ router.get('/user', async function(req, res, next) {
   }
 });
 
+router.post('/user', async function(req, res, next) {
+  try{
+    const {login, password} = req.body;
+    
+    const newUser = await User.create({
+      Login: login,
+      Password: password
+    });
+    res.status(201).send('User created');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Erreur lors de l\'inscription');
+  }
+});
+
 export default router;

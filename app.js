@@ -6,6 +6,8 @@ import cookieParser from 'cookie-parser';
 import ejsLayouts from 'express-ejs-layouts';
 import logger from 'morgan';
 import http from 'http';
+import swaggerUi from 'swagger-ui-express'; // Importer le module swagger-ui-express
+import YAML from 'yamljs';
 
 import indexRouter from './routes/index.js';
 import chatRouter from './routes/chat.js';
@@ -14,6 +16,7 @@ import userRouter from './routes/users.js';
 const app = express();
 const __filename = fileURLToPath(import.meta.url); // Chemin absolu du fichier actuel
 const __dirname = path.dirname(__filename);
+const swaggerDocument = YAML.load('./docs/swagger.yaml');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -24,6 +27,7 @@ app.use(ejsLayouts);
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(indexRouter);
 app.use(userRouter);

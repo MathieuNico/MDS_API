@@ -1,17 +1,21 @@
-
-<h1><%= title %></h1>
-<form style="display: flex; flex-direction: column; gap: 10px;">
-    <label for="name">Name</label>
-    <input type="text" id="name" name="name" required>
-    <label for="firstname">Firstname</label>
-    <input type="text" id="firstname" name="firstname" required>
-    <label for="age">Age</label>
-    <input type="number" id="age" name="age" required>
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" required>
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" required>
-    <label for="password">Confirm Password</label>
-    <input type="password" id="password" name="password" required>
-    <button type="submit">Inscription</button>
-</form> 
+<div class="container">
+    <h1><%= title %></h1>
+        <div class="row">
+            <div class="col-6">
+                <form action="/user" method="POST">
+                    <div class="mb-3">
+                      <label for="login" class="form-label">Login</label>
+                      <input type="string" class="form-control" id="login" name="login" aria-describedby="LoginHelp">
+                      
+                    </div>
+                    <div class="mb-3">
+                      <label for="password" class="form-label">Password</label>
+                      <input type="password" class="form-control" id="password" name="password">
+                    </div>  
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+      
