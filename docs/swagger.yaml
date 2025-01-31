@@ -4,7 +4,7 @@ info:
   description: API documentation for my Node.js app
   version: 1.0.0
 servers:
-  - url: http://localhost:8080
+  - url: http://mathieu.nicolas.angers.mds-project.fr:8080
 paths:
   /user:
     get:

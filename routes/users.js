@@ -17,6 +17,23 @@ router.get('/user', async function(req, res, next) {
   }
 });
 
+router.get('/user/:id', async function(req, res, next) {
+  try {
+    const userId = req.params.id;
+    const user = await User.findByPk(userId, {
+      attributes: ['IdUsers', 'Login', 'Password']
+    });
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).send('User not found');
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Erreur lors de la récupération');
+  }
+});
+
 router.post('/user', async function(req, res, next) {
   try{
     const {Login, Password} = req.body;

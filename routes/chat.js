@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import { Server } from 'socket.io';
-import dab from '../dab.mjs';
+import dab from '../services/dab.mjs';
 
 const router = Router();
 const regexDab = /^dab (\d+)(€|\$)$/; 
