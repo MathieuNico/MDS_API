@@ -59,7 +59,6 @@ const server = http.createServer(app);
 
 //server.on('error', onError);
 //server.on('listening', onListening);
-app.use('/chat', authenticateJWT, chatRouter(server));
 app.use(chatRouter(server));
 function normalizePort(val) {
   var port = parseInt(val, 10);

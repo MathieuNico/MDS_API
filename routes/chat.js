@@ -2,12 +2,13 @@ import { Router } from 'express';
 import { Server } from 'socket.io';
 import { verifyToken } from '../auth/auth.js'; // Import de verifyToken
 import dab from '../services/dab.mjs';
+import { authenticateJWT } from '../middleware/verificate.js';
 
 const router = Router();
 const regexDab = /^dab (\d+)(€|\$)$/;
 
 export default function chatRouter(server) {
-    router.get('/chat', function(req, res, next) {
+    router.get('/chat',authenticateJWT, function(req, res, next) {
         res.render('chat', { title: 'Chat' });
     });
 

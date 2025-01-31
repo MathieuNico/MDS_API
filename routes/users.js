@@ -2,11 +2,12 @@ import express from 'express';
 import User from '../models/userModel.js';
 import { where } from 'sequelize';
 import {generateToken} from '../auth/auth.js';
+import {authenticateJWT} from '../middleware/verificate.js';
 
 const router = express.Router();
 
 /* GET users listing. */
-router.get('/user', async function(req, res, next) {
+router.get('/user',authenticateJWT, async function(req, res, next) {
   try {
     const users = await User.findAll({
       attributes: ['IdUsers', 'Login', 'Password']
